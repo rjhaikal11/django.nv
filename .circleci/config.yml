@@ -17,6 +17,23 @@ jobs:
           pip install -r requirements.txt
           python manage.py test taskManager
 
+  oast:
+    runs-on: ubuntu-22.04
+    needs: test
+    steps:
+      - uses: actions/checkout@v2
+      - |
+        cat > .safety-policy.yml <<EOF
+        security:
+          ignore-vulnerabilities: {}
+        EOF
+      - run: docker run --rm -v $(pwd):/src hysnsec/safety check -r requirements.txt --json > oast-results.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Safety
+          path: oast-results.json
+        if: always()                        # what is this for?
+
   release:
     machine: true                                        # What is this for?
     steps:
