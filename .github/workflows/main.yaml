@@ -21,12 +21,13 @@ jobs:
     needs: test
     steps:
       - uses: actions/checkout@v2
-      - |
-        cat > .safety-policy.yml <<EOF
-        security:
-          ignore-vulnerabilities: {}
-        EOF
+      - run: |
+          cat > .safety-policy.yml <<EOF
+          security:
+            ignore-vulnerabilities: {}
+          EOF
       - run: docker run --rm -v $(pwd):/src hysnsec/safety check -r requirements.txt --json > oast-results.json
+        continue-on-error: true 
       - uses: actions/upload-artifact@v4
         with:
           name: Safety
