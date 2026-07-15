@@ -69,12 +69,13 @@ workflows:
       - oast:
           requires:
             - test
-      - integration:
+      - release:
           requires:
             - oast
+      - integration:
+          requires:
+            - release
       - prod:
           type: approval
-          requires:
-            - integration
           requires:
             - integration
