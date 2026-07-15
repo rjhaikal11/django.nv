@@ -21,7 +21,7 @@ jobs:
     machine: true
     steps:
       - checkout
-      - |
+      - run: |
         cat > .safety-policy.yml <<EOF
         security:
           ignore-vulnerabilities: {}
