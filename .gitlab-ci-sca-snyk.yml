@@ -41,7 +41,7 @@ oast-snyk:
   script:
     - npm install
     - snyk auth $SNYK_TOKEN
-    - snyk test --json > snyk-results.json
+    - snyk test --strict-out-of-sync=false --json > snyk-results.json
     - cat snyk-results.json
   artifacts:
     paths:

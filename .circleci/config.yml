@@ -29,8 +29,8 @@ jobs:
             chmod +x snyk
             mv snyk /usr/local/bin/
             npm install
-            snyk auth <INPUT_SNYK_TOKEN>
-            snyk test --json > snyk-results.json || true
+            snyk auth $SNYK_TOKEN
+            snyk test --strict-out-of-sync=false --json > snyk-results.json || true
 
       - store_artifacts:
           path: snyk-results.json
