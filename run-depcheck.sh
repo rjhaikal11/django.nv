@@ -33,7 +33,6 @@ odc-backend:
       - reports/dependency-check-report.json
     when: always
     expire_in: one week
-  allow_failure: true
 
 integration:
   stage: integration
